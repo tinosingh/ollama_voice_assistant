@@ -33,28 +33,29 @@ The first time it runs, the app will propose and ask you to choose your Ollama M
 
 Pro Tip: Your choices get saved in config.json, and the script automatically pulls those models for you.
 
-3. Let's Get Talking (Usage)
+3. USAGE
 
-Running the Application
-Once the initial setup is done, you can launch your assistant anytime with a quick command:
+Running the Application: Once the initial setup is done, you can launch your assistant anytime with a quick command:
 
 ./run.sh
 
 The app will pop up in your browser, usually at http://127.0.0.1:7860.
 
 Interacting with the Assistant
+
 You have two ways to chat:
 
 Text Input: Just type your question in the box and hit Enter or click submit.
 
 Voice Input: Click the microphone icon, say your piece, and stop recording. The app instantly transcribes your voice and sends it off to the LLM.
 
-**Audio File ManagementÄÄ
+4. CLEANUP
 - The app creates temporary .mp3 files for its answers. Don't worry about them, they're automatically taken care of:
 - The file is deleted instantly once your browser says playback has finished.
 - Any leftover files (if your computer had a meltdown or the app crashed) are automatically cleaned up every time the application starts up.
 
-**What's Under the Hood? (File Structure)**
+5. UNDER THE HOOD
+
 File            Description
 
 app.py            The heart of the app! It handles the Gradio interface, Ollama streaming, text-to-speech, and all the core logic.
@@ -68,4 +69,4 @@ config.json       Stores the names of the LLM and Whisper models you chose.
 requirements.txt  The shopping list for all the Python packages the app needs.
 
 
-That's all folks!
+*That's all folks!*
