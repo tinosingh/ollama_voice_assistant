@@ -1,0 +1,6 @@
+gradio
+ollama
+gTTS
+openai-whisper
+psutil
+pyttsx3
