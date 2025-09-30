@@ -1,93 +1,114 @@
-YOUR PERSONAL AI SIDEKICK: Ollama Voice Assistant
+# YOUR PERSONAL AI SIDEKICK: Ollama Voice Assistant
 
-A cross-platform voice assistant built with Python and Gradio, which means it runs local brains (Ollama and Whisper) right on your machine.
+A cross-platform voice assistant built with Python and Gradio that runs local brains (Ollama and Whisper) on your machine.
 
-It's optimized to be super fast and clean:
+This project is optimized to be fast and clean:
 
-It shows your question in the chat immediately—no waiting around for the answer to start!
+- The setup is self-contained (thanks to the included setup script).
+- Temporary audio files are cleaned up automatically after playback.
 
-The setup is neat and self-contained (thanks, SetupManager).
+---
 
-It automatically cleans up its temporary audio files after you finish listening, so no mess!
+## 1. Prerequisites
 
-1. STUFF YOU NEED (Prerequisites)
-Before firing up your assistant, you just need a couple of things ready:
+Before you start, make sure you have:
 
-Python 3.8+: Gotta have Python to run the show.
+- Python 3.8 or newer.
+- Ollama installed and its server running. (Follow the official Ollama documentation to install and start the Ollama server — make sure it is running before you begin setup.)
+- Git (to clone the repository).
 
-Ollama: This is the brain of the operation! Download and install it from the official Ollama website. Make absolutely sure the Ollama server is running in the background before you jump into the setup.
+---
 
-2. EASY SETUP
-We use a virtual environment (.venv) and a simple script (setup.sh) to handle all the tricky dependency stuff for you.
+## 2. Easy setup
 
-Getting the Code
-First, clone the repository and navigate into the project folder.
+We use a Python virtual environment (.venv) and a simple script (`setup.sh`) to install dependencies and perform the initial configuration.
 
-git clone [https://github.com/tinosingh/ollama_voice_assistant](https://github.com/tinosingh/ollama_voice_assistant)
+Getting the code:
+
+```bash
+git clone https://github.com/tinosingh/ollama_voice_assistant
 cd ollama_voice_assistant
+```
 
-The Quick Setup (First Time Only!)
-a) Make Scripts Executable:
+Make scripts executable (Unix/macOS):
 
+```bash
 chmod +x setup.sh run.sh
+```
 
-b) Run the Setup Script:
+Run the setup script:
 
+```bash
 ./setup.sh
+```
 
-This script will take care of creating your Python virtual environment, getting it activated, and starting the app's internal setup routine.
+What `setup.sh` does:
 
-Model Configuration is Interactive:
+- Creates and activates a Python virtual environment in `.venv`.
+- Installs Python dependencies from `requirements.txt`.
+- Runs the app's first-time setup routine, which includes interactively choosing and pulling models.
 
-The first time it runs, the app will propose and ask you to choose your Ollama Model (like gemma:2b or llama3:8b) and your Whisper Model (like base or small).
+Model configuration is interactive:
 
-Pro Tip: Your choices get saved in config.json, and the script automatically pulls those models for you.
+- The first time the app runs, it will prompt you to choose an Ollama model (for example, `gemma:2b` or `llama3:8b`) and a Whisper model (for example, `base` or `small`).
+- Your selections are saved to `config.json`.
+- The script can automatically pull the chosen models for you if desired.
 
-3. USAGE
-Running the Application: Once the initial setup is done, you can launch your assistant anytime with a quick command:
+Notes for different platforms:
 
+- To manually activate the created virtual environment:
+  - On macOS / Linux (bash/zsh): `source .venv/bin/activate`
+  - On Windows (PowerShell): `.venv\Scripts\Activate.ps1`
+  - On Windows (cmd.exe): `.venv\Scripts\activate.bat`
+
+`setup.sh` attempts to handle activation on Unix-like systems, but if you're on Windows or your shell differs, activate the venv manually as shown above.
+
+---
+
+## 3. Usage
+
+Start the application:
+
+```bash
 ./run.sh
+```
 
-The app will pop up in your browser, usually at http://127.0.0.1:7860.
+This launches the Gradio interface. By default, the app is available in your browser at:
 
-Interacting with the Assistant
+http://127.0.0.1:7860
 
-You have two ways to chat:
+Interacting with the assistant:
 
-Text Input: Just type your question in the box and hit Enter or click submit.
+- Text input: Type your message into the box and press Enter or click Submit.
+- Voice input: Click the microphone icon, speak, and stop recording. The app transcribes your speech locally with Whisper and sends the text to the LLM.
 
-Voice Input: Click the microphone icon, say your piece, and stop recording. The app instantly transcribes your voice and sends it off to the LLM.
+If the default port is already in use, Gradio will either fail to start or will choose another free port — check the console output for the actual URL.
 
-4. CLEANUP
-The app creates temporary .mp3 files for its answers. Don't worry about them, they're automatically taken care of:
+---
 
-The file is deleted instantly once your browser says playback has finished.
+## 4. Cleanup
 
-Any leftover files (if your computer had a meltdown or the app crashed) are automatically cleaned up every time the application starts up.
+The app generates temporary `.mp3` files for audio playback. Cleanup behavior:
 
-5. UNDER THE HOOD
-File
+- Each audio file is deleted automatically after the browser reports that playback finished.
+- If the app crashes or the system shuts down unexpectedly, any leftover temporary files are cleaned up the next time the application starts.
 
-Description
+---
 
-app.py
+## 5. Under the hood
 
-The heart of the app! It handles the Gradio interface, Ollama streaming, text-to-speech, and all the core logic.
+Key files:
 
-setup.sh
+- `app.py` — The main application. Handles the Gradio UI, Ollama streaming, speech-to-text (Whisper), text-to-speech, and core logic.
+- `setup.sh` — Creates the virtual environment and runs the first-time installation and model configuration.
+- `run.sh` — Launches the application after setup (this is the script you use to run the assistant).
+- `config.json` — Stores chosen model names and other configuration values.
+- `requirements.txt` — Python dependencies required by the app.
 
-The handy script that creates your environment (.venv) and kicks off the entire first-time installation process.
+---
 
-run.sh
+That's it — a cleaner, clearer README with corrected grammar and tightened instructions. If you want, I can also:
 
-The shortcut script you'll use every day to launch the app after setup.
-
-config.json
-
-Stores the names of the LLM and Whisper models you chose.
-
-requirements.txt
-
-The shopping list for all the Python packages the app needs.
-
-That's all folks!
+- Add a short troubleshooting section (common errors and their fixes).
+- Put explicit example commands for pulling Ollama models (if you'd like me to add exact Ollama CLI commands — tell me which Ollama version you expect to target).
+- Open a PR updating the README in your repo.
